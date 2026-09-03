@@ -1,0 +1,36 @@
+[project]
+name = "bench2drive"
+version = "0.0.4"
+requires-python = ">=3.8"
+dependencies = [
+  "carla>=0.9.10",
+  "py-trees==0.8.3",  # srunner targets the 0.8 API
+  "numpy",
+  "shapely",
+  "networkx",
+  "ephem",
+  "xmlschema",
+  "dictor",
+  "tabulate",
+  "simple-watchdog-timer",
+  "six",
+  "matplotlib",
+  "simplejson",
+  "requests",
+  "pexpect",
+  "transforms3d",
+]
+
+[project.optional-dependencies]
+human = ["pygame"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["leaderboard/leaderboard", "scenario_runner/srunner"]
+
+[tool.hatch.build.targets.wheel.force-include]
+# target is pre-rewrite: `packages` strips the leading "leaderboard/"
+"leaderboard/data/weather.xml" = "leaderboard/leaderboard/data/weather.xml"
