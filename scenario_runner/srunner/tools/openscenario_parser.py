@@ -11,7 +11,6 @@ This module provides a parser for scenario configuration files based on OpenSCEN
 
 from __future__ import print_function
 
-from distutils.util import strtobool
 import re
 import copy
 import datetime
@@ -72,6 +71,15 @@ from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (I
 from srunner.scenariomanager.timer import TimeOut, SimulationTimeCondition
 from srunner.tools.py_trees_port import oneshot_behavior
 from srunner.tools.scenario_helper import get_offset_transform, get_troad_from_transform
+
+
+def strtobool(val):  # distutils.util.strtobool, removed in py3.12 (same semantics)
+    val = val.lower()
+    if val in ('y', 'yes', 't', 'true', 'on', '1'):
+        return 1
+    if val in ('n', 'no', 'f', 'false', 'off', '0'):
+        return 0
+    raise ValueError("invalid truth value %r" % (val,))
 
 
 def oneshot_with_check(variable_name, behaviour, name=None):

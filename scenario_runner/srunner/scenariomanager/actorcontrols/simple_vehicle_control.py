@@ -14,7 +14,6 @@ Limitations:
 - Can only consider obstacles in forward facing reaching (i.e. in tight corners obstacles may be ignored).
 """
 
-from distutils.util import strtobool
 import math
 
 import carla
@@ -23,6 +22,15 @@ from srunner.scenariomanager.actorcontrols.basic_control import BasicControl
 from srunner.scenariomanager.actorcontrols.visualizer import Visualizer
 from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenariomanager.timer import GameTime
+
+
+def strtobool(val):  # distutils.util.strtobool, removed in py3.12 (same semantics)
+    val = val.lower()
+    if val in ('y', 'yes', 't', 'true', 'on', '1'):
+        return 1
+    if val in ('n', 'no', 'f', 'false', 'off', '0'):
+        return 0
+    raise ValueError("invalid truth value %r" % (val,))
 
 
 class SimpleVehicleControl(BasicControl):
